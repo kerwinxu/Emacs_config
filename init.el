@@ -54,9 +54,9 @@
 
 ;;先设置界面吧，毕竟界面好看些
 (use-package material-theme
-			 :init
-			 (load-theme 'material t) ;; load material theme
-			 )
+  :init
+  (load-theme 'material t) ;; load material theme
+  )
 ;;我要用邪恶模式,毕竟想用vim啊
 (use-package evil
   :ensure t
@@ -92,18 +92,18 @@
     (powerline-evil-vim-color-theme)))
 ;;然后是lisp的slime
 (use-package slime
-			 :ensure t
-			 :init
-			 (use-package slime-company
-						  :ensure t)
-			 (setq inferior-lisp-program "D:/Program Files/Steel Bank Common Lisp/1.4.2/sbcl.exe");设置优先使用哪种Common Lisp实现
-			(slime-setup'(slime-fancy slime-company))
-			(require  'slime-autoloads)
-			 )
+  :ensure t
+  :init
+  (use-package slime-company
+    :ensure t)
+  (setq inferior-lisp-program "D:/Program Files/Steel Bank Common Lisp/1.4.2/sbcl.exe");设置优先使用哪种Common Lisp实现
+  (slime-setup'(slime-fancy slime-company))
+  (require  'slime-autoloads)
+  )
 ;; ----------------------------------------------------------------------------
 ;;如下是自动补全的,我暂时用company
 (use-package company
-	:ensure t
+  :ensure t
   :init
   (global-company-mode t); 全局开启
   :config
@@ -122,7 +122,7 @@
   ;;(add-to-list 'company-backends '(company-anaconda :with company-yasnippet))
   
 					; 补全快捷键
-  (global-set-key (kbd "<C-tab>") 'company-complete)
+  (global-set-key (kbd "<C-itab>") 'company-complete)
 					; 补全菜单选项快捷键
   ;;(define-key company-active-map (kbd "C-n") 'company-select-next)
   ;;(define-key company-active-map (kbd "C-p") 'company-select-previous)
@@ -136,8 +136,18 @@
   (setq company-backends nil)  
   )
 
-;;自动括号的
+;;搜索的
+(use-package helm :ensure t
+	:init
+	(require 'helm-config)
+	(require 'helm-grep)
+	(helm-mode 1) 
+	:bind
+	("M-x" . helm-M-x)
+	("C-x C-f" . helm-find-files)
+)
 
+(use-package magit :ensure t)
 
 
 (custom-set-variables
@@ -147,7 +157,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (slime-company slime evil material-theme use-package))))
+    (magit evil-ediff ivy slime-company slime evil material-theme use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
